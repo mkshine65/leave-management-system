@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Leave Management System</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <th:block th:replace="${links}" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="navbar-brand">Leave Management</a>
+            <div class="nav-links">
+                <a th:href="@{/leave-requests}" class="nav-link">My Leave Requests</a>
+                <a th:href="@{/leave-requests/calendar}" class="nav-link">Leave Calendar</a>
+                <a th:href="@{/leave-requests/pending}" class="nav-link" sec:authorize="hasRole('MANAGER')">Pending Requests</a>
+                <a th:href="@{/employees}" class="nav-link" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">Employees</a>
+                <a th:href="@{/profile}" class="nav-link">Profile</a>
+                <form th:action="@{/logout}" method="post" class="logout-form">
+                    <button type="submit" class="nav-link logout-btn">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <th:block th:replace="${content}" />
+    </main>
+
+    <th:block th:replace="${scripts}" />
+</body>
+</html> 

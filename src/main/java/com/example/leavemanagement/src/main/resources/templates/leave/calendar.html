@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/main :: html(content=~{::content}, links=~{::links}, scripts=~{::scripts})}">
+<head>
+    <th:block th:fragment="links">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+    </th:block>
+</head>
+<body>
+    <th:block th:fragment="content">
+        <h1>Leave Calendar</h1>
+        <div class="card">
+            <div id="calendar"></div>
+        </div>
+    </th:block>
+
+    <th:block th:fragment="scripts">
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+        <script th:inline="javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
+                    events: /*[[${leaveRequests}]]*/ []
+                });
+                calendar.render();
+            });
+
+            function getStatusColor(status) {
+                switch(status) {
+                    case 'APPROVED':
+                        return '#28a745';  // Green
+                    case 'PENDING':
+                        return '#ffc107';  // Yellow
+                    case 'REJECTED':
+                        return '#dc3545';  // Red
+                    default:
+                        return '#6c757d';  // Gray
+                }
+            }
+        </script>
+        <style>
+            #calendar {
+                margin: 20px 0;
+                height: 600px;
+            }
+            .fc-event {
+                cursor: pointer;
+            }
+            .fc-toolbar-title {
+                font-size: 1.5em !important;
+            }
+            .fc-button {
+                background-color: #007bff !important;
+                border-color: #007bff !important;
+            }
+            .fc-button:hover {
+                background-color: #0056b3 !important;
+                border-color: #0056b3 !important;
+            }
+        </style>
+    </th:block>
+</body>
+</html> 

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head>
+    <title>Dashboard - Leave Management System</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container mt-4">
+            <h2>Welcome to Leave Management System</h2>
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Leave Balance</h5>
+                            <p class="card-text">Annual Leave: <span th:text="${employee?.annualLeaveBalance ?: 0}">20</span> days</p>
+                            <p class="card-text">Sick Leave: <span th:text="${employee?.sickLeaveBalance ?: 0}">10</span> days</p>
+                            <p class="card-text">Personal Leave: <span th:text="${employee?.personalLeaveBalance ?: 0}">5</span> days</p>
+                            <a href="/leave-requests/new" class="btn btn-primary">Request Leave</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Recent Leave Requests</h5>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="request : ${leaveRequests}">
+                                            <td th:text="${request.leaveType}">Annual</td>
+                                            <td th:text="${#temporals.format(request.startDate, 'dd/MM/yyyy')}">01/01/2024</td>
+                                            <td th:text="${#temporals.format(request.endDate, 'dd/MM/yyyy')}">02/01/2024</td>
+                                            <td>
+                                                <span th:class="${request.status == 'APPROVED' ? 'badge bg-success' : 
+                                                                request.status == 'REJECTED' ? 'badge bg-danger' : 
+                                                                'badge bg-warning'}"
+                                                      th:text="${request.status}">PENDING</span>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{/leave-requests/{id}(id=${request.id})}" 
+                                                   class="btn btn-sm btn-info">View</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

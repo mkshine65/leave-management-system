@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Holiday Calendar - Leave Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="mb-0">Holiday Calendar 2024</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script th:inline="javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
+                    events: [
+                        {
+                            title: 'New Year\'s Day',
+                            start: '2024-01-01',
+                            allDay: true,
+                            color: '#ff9f89'
+                        },
+                        {
+                            title: 'Republic Day',
+                            start: '2024-01-26',
+                            allDay: true,
+                            color: '#ff9f89'
+                        },
+                        {
+                            title: 'Good Friday',
+                            start: '2024-03-29',
+                            allDay: true,
+                            color: '#ff9f89'
+                        },
+                        {
+                            title: 'Labor Day',
+                            start: '2024-05-01',
+                            allDay: true,
+                            color: '#ff9f89'
+                        },
+                        {
+                            title: 'Independence Day',
+                            start: '2024-08-15',
+                            allDay: true,
+                            color: '#ff9f89'
+                        },
+                        {
+                            title: 'Gandhi Jayanti',
+                            start: '2024-10-02',
+                            allDay: true,
+                            color: '#ff9f89'
+                        },
+                        {
+                            title: 'Christmas',
+                            start: '2024-12-25',
+                            allDay: true,
+                            color: '#ff9f89'
+                        }
+                    ]
+                });
+                calendar.render();
+            });
+        </script>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/main :: html(content=~{::content}, links=~{::links}, scripts=~{::scripts})}">
+<head>
+    <th:block th:fragment="links">
+        <!-- Additional page-specific links here -->
+    </th:block>
+</head>
+<body>
+    <th:block th:fragment="content">
+        <h1>Leave Management Dashboard</h1>
+        
+        <!-- Apply for Leave Section -->
+        <div class="card">
+            <h2>Apply for Leave</h2>
+            <form th:action="@{/leave-requests}" method="post" th:object="${leaveRequest}">
+                <div class="form-group">
+                    <label>Leave Type:</label>
+                    <select name="leaveType" required>
+                        <option th:each="type : ${leaveTypes}" 
+                                th:value="${type}" 
+                                th:text="${type}">ANNUAL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Start Date:</label>
+                    <input type="date" name="startDate" required>
+                </div>
+                <div class="form-group">
+                    <label>End Date:</label>
+                    <input type="date" name="endDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Reason:</label>
+                    <textarea name="reason" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Request</button>
+            </form>
+        </div>
+
+        <!-- My Leave Requests Section -->
+        <div class="card">
+            <h2>My Leave Requests</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Days</th>
+                        <th>Status</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="request : ${leaveRequests}">
+                        <td th:text="${request.leaveType}">ANNUAL</td>
+                        <td th:text="${#temporals.format(request.startDate, 'dd-MM-yyyy')}">01-01-2025</td>
+                        <td th:text="${#temporals.format(request.endDate, 'dd-MM-yyyy')}">02-01-2025</td>
+                        <td th:text="${request.numberOfDays}">2</td>
+                        <td th:text="${request.status}">PENDING</td>
+                        <td th:text="${request.comments}">-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </th:block>
+
+    <th:block th:fragment="scripts">
+        <!-- Additional page-specific scripts here -->
+    </th:block>
+</body>
+</html> 

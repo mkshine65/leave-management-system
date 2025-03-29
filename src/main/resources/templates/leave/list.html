@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head>
+    <title>My Leave Requests</title>
+</head>
+<body>
+    <div layout:fragment content>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>My Leave Requests</h2>
+            <a th:href="@{/leave-requests/new}" class="btn btn-primary">New Request</a>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Leave Type</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Days</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="request : ${leaveRequests}">
+                                <td th:text="${request.leaveType}"></td>
+                                <td th:text="${#temporals.format(request.startDate, 'dd/MM/yyyy')}"></td>
+                                <td th:text="${#temporals.format(request.endDate, 'dd/MM/yyyy')}"></td>
+                                <td th:text="${request.numberOfDays}"></td>
+                                <td>
+                                    <span th:class="${request.status == 'APPROVED' ? 'badge bg-success' : 
+                                                    request.status == 'REJECTED' ? 'badge bg-danger' : 
+                                                    'badge bg-warning'}"
+                                          th:text="${request.status}">
+                                    </span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/leave-requests/{id}(id=${request.id})}" 
+                                       class="btn btn-sm btn-info">View</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head>
+    <title>New Leave Request</title>
+</head>
+<body>
+    <div layout:fragment content>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>New Leave Request</h3>
+                    </div>
+                    <div class="card-body">
+                        <div th:if="${param.error == 'insufficient_balance'}" class="alert alert-danger">
+                            You don't have enough leave balance for this request.
+                        </div>
+                        <form th:action="@{/leave-requests}" th:object="${leaveRequest}" method="post">
+                            <div class="mb-3">
+                                <label for="leaveType" class="form-label">Leave Type</label>
+                                <select class="form-select" id="leaveType" th:field="*{leaveType}" required>
+                                    <option value="">Select Leave Type</option>
+                                    <option value="ANNUAL">Annual Leave</option>
+                                    <option value="SICK">Sick Leave</option>
+                                    <option value="PERSONAL">Personal Leave</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="startDate" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="startDate" th:field="*{startDate}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="endDate" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="endDate" th:field="*{endDate}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="reason" class="form-label">Reason</label>
+                                <textarea class="form-control" id="reason" th:field="*{reason}" rows="3" required></textarea>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Submit Request</button>
+                                <a th:href="@{/leave-requests}" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

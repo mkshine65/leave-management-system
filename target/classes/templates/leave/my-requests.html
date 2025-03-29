@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>My Leave Requests - Leave Management System</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container mt-4">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newLeaveRequestModal">
+                        <i class="fas fa-plus"></i> New Leave Request
+                    </button>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="mb-0">My Leave Requests</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Leave Type</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Days</th>
+                                            <th>Status</th>
+                                            <th>Comments</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Sample data, will be replaced with actual data -->
+                                        <tr>
+                                            <td>Annual Leave</td>
+                                            <td>2024-04-01</td>
+                                            <td>2024-04-05</td>
+                                            <td>5</td>
+                                            <td><span class="badge bg-warning">Pending</span></td>
+                                            <td>Family vacation</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-danger" onclick="alert('Cancel functionality coming soon!')">Cancel</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Leave Request Modal -->
+        <div class="modal fade" id="newLeaveRequestModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">New Leave Request</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="leaveRequestForm">
+                            <div class="mb-3">
+                                <label class="form-label">Leave Type</label>
+                                <select class="form-select" required>
+                                    <option value="">Select Leave Type</option>
+                                    <option value="ANNUAL">Annual Leave</option>
+                                    <option value="SICK">Sick Leave</option>
+                                    <option value="PERSONAL">Personal Leave</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Start Date</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">End Date</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Reason</label>
+                                <textarea class="form-control" rows="3" required></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="alert('Submit functionality coming soon!')">Submit Request</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
