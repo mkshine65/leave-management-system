@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: leave-management-system
+    env: docker
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/*.jar
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SERVER_PORT
+        value: 8080
+      - key: ADMIN_USERNAME
+        value: admin@example.com
+      - key: ADMIN_PASSWORD
+        value: admin123
+    healthCheckPath: /actuator/health
+    autoDeploy: true 
